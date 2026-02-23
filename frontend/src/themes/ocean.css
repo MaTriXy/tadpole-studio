@@ -1,0 +1,109 @@
+/* Ocean — Steel Blue Depths
+   Classic blue, cool and professional
+   CRT effects: yes (subtle blue glass) */
+
+html[data-theme="ocean"] {
+  --background: oklch(0.12 0.03 235);
+  --foreground: oklch(0.95 0.02 235);
+  --card: oklch(0.16 0.04 235 / 70%); /* Glass effect */
+  --card-foreground: oklch(0.95 0.02 235);
+  --popover: oklch(0.18 0.04 235 / 85%);
+  --popover-foreground: oklch(0.95 0.02 235);
+  --secondary: oklch(0.25 0.05 235);
+  --secondary-foreground: oklch(0.90 0.03 235);
+  --muted: oklch(0.22 0.03 235 / 50%);
+  --muted-foreground: oklch(0.65 0.04 235);
+
+  --primary: oklch(0.65 0.18 245);
+  --primary-foreground: oklch(0.12 0.03 235);
+  --ring: oklch(0.65 0.18 245);
+  --accent: oklch(0.35 0.08 245 / 40%);
+  --accent-foreground: oklch(0.98 0.02 235);
+
+  --destructive: oklch(0.60 0.22 25);
+
+  --border: oklch(0.65 0.18 245 / 25%);
+  --input: oklch(0.65 0.18 245 / 30%);
+  --scrollbar-thumb: oklch(0.65 0.18 245 / 40%);
+  --scrollbar-thumb-hover: oklch(0.65 0.18 245 / 60%);
+
+  --sidebar: oklch(0.10 0.04 235);
+  --sidebar-foreground: oklch(0.90 0.02 235);
+  --sidebar-primary: oklch(0.65 0.18 245);
+  --sidebar-primary-foreground: oklch(0.12 0.03 235);
+  --sidebar-accent: oklch(0.18 0.04 235);
+  --sidebar-accent-foreground: oklch(0.98 0.02 235);
+  --sidebar-border: oklch(0.65 0.18 245 / 15%);
+  --sidebar-ring: oklch(0.65 0.18 245);
+
+  --chart-1: oklch(0.65 0.18 245);
+  --chart-2: oklch(0.60 0.15 230);
+  --chart-3: oklch(0.55 0.20 260);
+  --chart-4: oklch(0.70 0.12 240);
+  --chart-5: oklch(0.50 0.22 250);
+
+  /* CRT Effect Config */
+  --crt-vignette-opacity: 0.55;
+  --crt-vignette-spread: 65%;
+  --crt-text-glow:
+    1px 0 1px oklch(0.65 0.18 25 / 25%),
+    -1px 0 1px oklch(0.5 0.12 280 / 18%),
+    0 0 5px oklch(0.65 0.18 245 / 40%);
+  --crt-primary-glow: 0 0 12px 2px oklch(0.65 0.18 245 / 30%);
+  --crt-border-glow: oklch(0.65 0.18 245 / 15%);
+}
+
+html[data-theme="ocean"] body {
+  background-image: linear-gradient(
+    165deg,
+    oklch(0.12 0.03 235) 0%,
+    oklch(0.08 0.02 230) 100%
+  );
+  background-attachment: fixed;
+}
+
+/* ── Glass cards ── */
+html[data-theme="ocean"] [data-slot="card"] {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 1px 0 var(--crt-border-glow),
+    inset 0 0 1px 0 var(--crt-border-glow),
+    inset 0 1px 0 oklch(0.65 0.18 245 / 15%);
+}
+
+/* ── Metallic divider on card headers ── */
+html[data-theme="ocean"] [data-slot="card-header"] {
+  border-image: linear-gradient(
+    to right,
+    transparent 0%,
+    oklch(0.65 0.18 245 / 30%) 30%,
+    oklch(0.65 0.18 245 / 40%) 50%,
+    oklch(0.65 0.18 245 / 30%) 70%,
+    transparent 100%
+  ) 1;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/* ── Sidebar chrome edge ── */
+html[data-theme="ocean"] aside[class*="bg-sidebar"] {
+  box-shadow:
+    1px 0 8px -2px var(--crt-border-glow),
+    1px 0 1px 0 oklch(0.65 0.18 245 / 20%);
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="ocean"] [data-slot="card"] {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+  html[data-theme="ocean"] [data-slot="card-header"] {
+    border-image: none;
+  }
+  html[data-theme="ocean"] aside[class*="bg-sidebar"] {
+    box-shadow: none;
+  }
+}

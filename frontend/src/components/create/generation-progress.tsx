@@ -1,0 +1,49 @@
+"use client";
+
+import { useGpuStore } from "@/stores/gpu-store";
+import { useActiveBackend } from "@/hooks/use-active-backend";
+
+interface GenerationProgressProps {
+  progress: number;
+  stage: string;
+}
+
+export function GenerationProgress({ progress, stage }: GenerationProgressProps) {
+  const gpuHolder = useGpuStore((s) => s.holder);
+  const { capabilities } = useActiveBackend();
+  const pct = Math.min(Math.max(progress * 100, 0), 100);
+  const isIndeterminate = !capabilities.supports_progress_callback && pct < 100 && pct > 0;
+
+  // Show a "waiting for GPU" banner when another consumer holds the GPU
+  const isWaitingForGpu = gpuHolder !== null && gpuHolder !== "generation" && pct === 0;
+
+  return (
+    <div className="space-y-2">
+      {isWaitingForGpu && (
+        <div className="flex items-center gap-2 rounded-md bg-amber-500/10 px-3 py-2 text-xs text-amber-600 dark:text-amber-400">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
+          </span>
+          Waiting for GPU ({gpuHolder} generating)...
+        </div>
+      )}
+      <div className="h-2 overflow-hidden rounded-full bg-muted">
+        {isIndeterminate ? (
+          <div className="h-full w-1/3 rounded-full bg-primary animate-pulse" />
+        ) : (
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-300"
+            style={{ width: `${pct}%` }}
+          />
+        )}
+      </div>
+      <p className="text-xs text-muted-foreground">
+        {isIndeterminate
+          ? (stage || "Generating with HeartMuLa...") + " (approximate real-time speed)"
+          : `${stage || "Preparing..."} — ${pct.toFixed(0)}%`
+        }
+      </p>
+    </div>
+  );
+}

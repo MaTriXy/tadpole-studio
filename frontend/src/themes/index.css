@@ -1,0 +1,14 @@
+/* _effects.css MUST be first — theme files override shared
+   CRT effects by source-order cascade at equal specificity. */
+@import "./_effects.css";
+@import "./midnight.css";
+@import "./ocean.css";
+@import "./ember.css";
+@import "./neon.css";
+@import "./sakura.css";
+@import "./retro.css";
+@import "./cafe.css";
+@import "./slate.css";
+@import "./vapor.css";
+@import "./sunset.css";
+@import "./daylight.css";

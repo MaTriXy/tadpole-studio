@@ -1,0 +1,64 @@
+/* CRT Retro Effects — Shared rules for themes with CRT aesthetics
+   Applied to: retro, neon, ocean
+   Sakura has its own soft glow system (defined in sakura.css)
+   All effects are CSS-only, static (no animation), epilepsy-safe. */
+
+/* ── Vignette (body::before, z-index: 9998) ── */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle at center,
+    transparent var(--crt-vignette-spread, 70%),
+    oklch(0 0 0 / var(--crt-vignette-opacity, 0.5)) 100%
+  );
+}
+
+
+/* ── Phosphor text glow + chromatic aberration ── */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) body {
+  text-shadow: var(--crt-text-glow);
+}
+
+/* ── Element glow (primary buttons, play button) ── */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) .bg-primary {
+  box-shadow: var(--crt-primary-glow), inset 0 0 0 1px oklch(1 0 0 / 10%);
+  text-shadow: none;
+}
+
+/* ── Structural glow (cards, sidebar edge, mini-player) ── */
+
+/* Cards */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) [data-slot="card"] {
+  box-shadow: 0 0 1px 0 var(--crt-border-glow), inset 0 0 1px 0 var(--crt-border-glow);
+}
+
+/* Sidebar right edge */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) aside[class*="bg-sidebar"] {
+  box-shadow: 1px 0 8px -2px var(--crt-border-glow);
+}
+
+/* Mini-player top edge */
+html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) .fixed.bottom-0.border-t {
+  box-shadow: 0 -1px 8px -2px var(--crt-border-glow);
+}
+
+/* ── Accessibility: prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) body::before,
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) body::after {
+    display: none;
+  }
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) body {
+    text-shadow: none;
+  }
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) .bg-primary,
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) [data-slot="card"],
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) aside[class*="bg-sidebar"],
+  html:is([data-theme="retro"], [data-theme="neon"], [data-theme="ocean"]) .fixed.bottom-0.border-t {
+    box-shadow: revert;
+  }
+}

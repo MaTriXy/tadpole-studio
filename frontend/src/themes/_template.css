@@ -1,0 +1,63 @@
+/* How to add a theme:
+   1) Copy this file and rename to your-theme.css
+   2) Replace "your-theme" in the selector with your theme ID
+   3) Edit the color values
+   4) Add @import "./your-theme.css"; to index.css
+   5) Create a matching your-theme.ts metadata file
+   6) Add the import and entry to index.ts */
+
+/* html[data-theme="your-theme"] { */
+  /* ── Surfaces ── */
+  /* --background: oklch(...);
+  --foreground: oklch(...);
+  --card: oklch(...);
+  --card-foreground: oklch(...);
+  --popover: oklch(...);
+  --popover-foreground: oklch(...);
+  --secondary: oklch(...);
+  --secondary-foreground: oklch(...);
+  --muted: oklch(...);
+  --muted-foreground: oklch(...); */
+
+  /* ── Accent ── */
+  /* --primary: oklch(...);
+  --primary-foreground: oklch(...);
+  --ring: oklch(...);
+  --accent: oklch(...);
+  --accent-foreground: oklch(...);
+  --destructive: oklch(0.60 0.22 25); */
+
+  /* ── Chrome (borders, inputs, scrollbars) ── */
+  /* --border: oklch(...);
+  --input: oklch(...);
+  --scrollbar-thumb: oklch(...);
+  --scrollbar-thumb-hover: oklch(...); */
+
+  /* ── Sidebar ── */
+  /* --sidebar: oklch(...);
+  --sidebar-foreground: oklch(...);
+  --sidebar-primary: oklch(...);
+  --sidebar-primary-foreground: oklch(...);
+  --sidebar-accent: oklch(...);
+  --sidebar-accent-foreground: oklch(...);
+  --sidebar-border: oklch(...);
+  --sidebar-ring: oklch(...); */
+
+  /* ── Charts ── */
+  /* --chart-1: oklch(...);
+  --chart-2: oklch(...);
+  --chart-3: oklch(...);
+  --chart-4: oklch(...);
+  --chart-5: oklch(...); */
+
+  /* ── CRT Effects (optional — omit for clean themes) ── */
+  /* To enable CRT effects, uncomment these variables AND add your
+     theme's data-theme value to the :is() selectors in _effects.css */
+  /* --crt-scanline-opacity: 0.06;
+  --crt-scanline-spacing: 3px;
+  --crt-vignette-opacity: 0.55;
+  --crt-vignette-spread: 70%;
+  --crt-text-glow: 0 0 8px oklch(... / 60%);
+  --crt-primary-glow: 0 0 12px 2px oklch(... / 35%);
+  --crt-border-glow: oklch(... / 12%); */
+/* } */

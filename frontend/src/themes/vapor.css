@@ -1,0 +1,129 @@
+/* Vapor — A E S T H E T I C
+   Hot pink + teal on deep purple, vaporwave aesthetic
+   Effects: perspective grid background, pink/cyan glow */
+
+html[data-theme="vapor"] {
+  --background: oklch(0.10 0.04 290);
+  --foreground: oklch(0.92 0.02 300);
+  --card: oklch(0.14 0.04 290);
+  --card-foreground: oklch(0.92 0.02 300);
+  --popover: oklch(0.16 0.04 290);
+  --popover-foreground: oklch(0.92 0.02 300);
+  --secondary: oklch(0.20 0.04 290);
+  --secondary-foreground: oklch(0.88 0.02 300);
+  --muted: oklch(0.18 0.03 290);
+  --muted-foreground: oklch(0.58 0.03 300);
+
+  --primary: oklch(0.65 0.28 340);
+  --primary-foreground: oklch(0.98 0 0);
+  --ring: oklch(0.65 0.28 340);
+  --accent: oklch(0.65 0.15 195);
+  --accent-foreground: oklch(0.10 0.04 195);
+  --destructive: oklch(0.60 0.22 25);
+
+  --border: oklch(0.65 0.28 340 / 15%);
+  --input: oklch(0.65 0.28 340 / 20%);
+  --scrollbar-thumb: oklch(0.65 0.28 340 / 40%);
+  --scrollbar-thumb-hover: oklch(0.65 0.28 340 / 60%);
+
+  --sidebar: oklch(0.08 0.04 290);
+  --sidebar-foreground: oklch(0.88 0.02 300);
+  --sidebar-primary: oklch(0.65 0.28 340);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.15 0.05 290);
+  --sidebar-accent-foreground: oklch(0.92 0.02 300);
+  --sidebar-border: oklch(0.65 0.28 340 / 10%);
+  --sidebar-ring: oklch(0.65 0.28 340);
+
+  --chart-1: oklch(0.65 0.28 340);
+  --chart-2: oklch(0.65 0.15 195);
+  --chart-3: oklch(0.70 0.20 320);
+  --chart-4: oklch(0.60 0.18 210);
+  --chart-5: oklch(0.55 0.25 350);
+
+  /* Vapor glow config */
+  --vapor-text-glow:
+    1px 0 2px oklch(0.65 0.15 195 / 30%),
+    -1px 0 2px oklch(0.65 0.28 340 / 25%),
+    0 0 8px oklch(0.65 0.28 340 / 35%);
+  --vapor-primary-glow: 0 0 18px 3px oklch(0.65 0.28 340 / 40%);
+  --vapor-border-glow: oklch(0.65 0.28 340 / 12%);
+}
+
+/* ── Grid background + sunset gradient ── */
+html[data-theme="vapor"] body {
+  background-image:
+    linear-gradient(to right, oklch(0.65 0.28 340 / 6%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.65 0.28 340 / 6%) 1px, transparent 1px),
+    linear-gradient(
+      180deg,
+      oklch(0.12 0.06 290) 0%,
+      oklch(0.10 0.05 310) 40%,
+      oklch(0.08 0.04 280) 100%
+    );
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+  background-attachment: fixed;
+}
+
+/* ── Vignette ── */
+html[data-theme="vapor"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle at center,
+    transparent 65%,
+    oklch(0 0 0 / 0.50) 100%
+  );
+}
+
+/* ── Pink/cyan text glow ── */
+html[data-theme="vapor"] body {
+  text-shadow: var(--vapor-text-glow);
+}
+
+/* ── Primary button glow ── */
+html[data-theme="vapor"] .bg-primary {
+  box-shadow: var(--vapor-primary-glow), inset 0 0 0 1px oklch(1 0 0 / 10%);
+  text-shadow: none;
+}
+
+/* ── Card glow ── */
+html[data-theme="vapor"] [data-slot="card"] {
+  box-shadow:
+    0 0 1px 0 var(--vapor-border-glow),
+    inset 0 0 1px 0 var(--vapor-border-glow),
+    inset 0 1px 0 oklch(0.65 0.15 195 / 10%);
+}
+
+/* ── Sidebar edge glow ── */
+html[data-theme="vapor"] aside[class*="bg-sidebar"] {
+  box-shadow:
+    1px 0 10px -2px oklch(0.65 0.28 340 / 15%),
+    1px 0 1px 0 oklch(0.65 0.15 195 / 12%);
+}
+
+/* ── Mini-player glow ── */
+html[data-theme="vapor"] .fixed.bottom-0.border-t {
+  box-shadow: 0 -1px 10px -2px oklch(0.65 0.28 340 / 15%);
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="vapor"] body::before {
+    display: none;
+  }
+  html[data-theme="vapor"] body {
+    text-shadow: none;
+    background-image: none;
+    background-color: oklch(0.10 0.04 290);
+  }
+  html[data-theme="vapor"] .bg-primary,
+  html[data-theme="vapor"] [data-slot="card"],
+  html[data-theme="vapor"] aside[class*="bg-sidebar"],
+  html[data-theme="vapor"] .fixed.bottom-0.border-t {
+    box-shadow: revert;
+  }
+}

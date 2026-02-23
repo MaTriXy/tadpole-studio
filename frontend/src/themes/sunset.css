@@ -1,0 +1,122 @@
+/* Sunset — Synthwave Horizon
+   Orange-to-purple sunset gradient, electric cyan accents
+   Effects: dramatic sunset body gradient, warm glow */
+
+html[data-theme="sunset"] {
+  --background: oklch(0.08 0.02 280);
+  --foreground: oklch(0.95 0.01 60);
+  --card: oklch(0.12 0.03 280);
+  --card-foreground: oklch(0.95 0.01 60);
+  --popover: oklch(0.14 0.03 280);
+  --popover-foreground: oklch(0.95 0.01 60);
+  --secondary: oklch(0.18 0.03 280);
+  --secondary-foreground: oklch(0.90 0.01 60);
+  --muted: oklch(0.15 0.02 280);
+  --muted-foreground: oklch(0.58 0.02 280);
+
+  --primary: oklch(0.72 0.22 25);
+  --primary-foreground: oklch(0.08 0.02 25);
+  --ring: oklch(0.72 0.22 25);
+  --accent: oklch(0.70 0.14 200);
+  --accent-foreground: oklch(0.08 0.02 200);
+  --destructive: oklch(0.60 0.22 25);
+
+  --border: oklch(0.72 0.22 25 / 15%);
+  --input: oklch(0.72 0.22 25 / 20%);
+  --scrollbar-thumb: oklch(0.72 0.22 25 / 40%);
+  --scrollbar-thumb-hover: oklch(0.72 0.22 25 / 60%);
+
+  --sidebar: oklch(0.06 0.02 280);
+  --sidebar-foreground: oklch(0.90 0.01 60);
+  --sidebar-primary: oklch(0.72 0.22 25);
+  --sidebar-primary-foreground: oklch(0.08 0.02 25);
+  --sidebar-accent: oklch(0.14 0.04 300);
+  --sidebar-accent-foreground: oklch(0.95 0.01 60);
+  --sidebar-border: oklch(0.72 0.22 25 / 10%);
+  --sidebar-ring: oklch(0.72 0.22 25);
+
+  --chart-1: oklch(0.72 0.22 25);
+  --chart-2: oklch(0.70 0.14 200);
+  --chart-3: oklch(0.65 0.25 340);
+  --chart-4: oklch(0.75 0.18 40);
+  --chart-5: oklch(0.60 0.20 300);
+
+  /* Sunset glow config */
+  --sunset-text-glow:
+    0 0 6px oklch(0.72 0.22 25 / 30%),
+    0 0 12px oklch(0.65 0.25 340 / 15%);
+  --sunset-primary-glow: 0 0 20px 4px oklch(0.72 0.22 25 / 40%);
+  --sunset-border-glow: oklch(0.72 0.22 25 / 10%);
+}
+
+/* ── Sunset gradient body ── */
+html[data-theme="sunset"] body {
+  background-image: linear-gradient(
+    180deg,
+    oklch(0.20 0.10 25) 0%,
+    oklch(0.15 0.12 340) 25%,
+    oklch(0.10 0.06 300) 50%,
+    oklch(0.06 0.02 270) 100%
+  );
+  background-attachment: fixed;
+}
+
+/* ── Vignette ── */
+html[data-theme="sunset"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle at center,
+    transparent 60%,
+    oklch(0 0 0 / 0.55) 100%
+  );
+}
+
+/* ── Warm text glow ── */
+html[data-theme="sunset"] body {
+  text-shadow: var(--sunset-text-glow);
+}
+
+/* ── Primary button glow ── */
+html[data-theme="sunset"] .bg-primary {
+  box-shadow: var(--sunset-primary-glow), inset 0 0 0 1px oklch(1 0 0 / 12%);
+  text-shadow: none;
+}
+
+/* ── Card glow ── */
+html[data-theme="sunset"] [data-slot="card"] {
+  box-shadow:
+    0 0 1px 0 var(--sunset-border-glow),
+    inset 0 0 1px 0 var(--sunset-border-glow);
+}
+
+/* ── Sidebar edge glow ── */
+html[data-theme="sunset"] aside[class*="bg-sidebar"] {
+  box-shadow: 1px 0 10px -2px oklch(0.72 0.22 25 / 12%);
+}
+
+/* ── Mini-player glow ── */
+html[data-theme="sunset"] .fixed.bottom-0.border-t {
+  box-shadow: 0 -1px 10px -2px oklch(0.72 0.22 25 / 12%);
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="sunset"] body::before {
+    display: none;
+  }
+  html[data-theme="sunset"] body {
+    text-shadow: none;
+    background-image: none;
+    background-color: oklch(0.08 0.02 280);
+  }
+  html[data-theme="sunset"] .bg-primary,
+  html[data-theme="sunset"] [data-slot="card"],
+  html[data-theme="sunset"] aside[class*="bg-sidebar"],
+  html[data-theme="sunset"] .fixed.bottom-0.border-t {
+    box-shadow: revert;
+  }
+}

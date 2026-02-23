@@ -1,0 +1,146 @@
+/* Sakura — Medium Pastel Kawaii
+   Soft pink palette, gentle glow, dreamy and cute
+   Effects: yes (soft pink glow, gentle vignette, flower-shaped play button) */
+
+html[data-theme="sakura"] {
+  --background: oklch(0.88 0.025 340);
+  --foreground: oklch(0.25 0.02 330);
+  --card: oklch(0.90 0.022 338);
+  --card-foreground: oklch(0.25 0.02 330);
+  --popover: oklch(0.91 0.02 340);
+  --popover-foreground: oklch(0.25 0.02 330);
+  --secondary: oklch(0.84 0.03 340);
+  --secondary-foreground: oklch(0.28 0.02 330);
+  --muted: oklch(0.86 0.025 338);
+  --muted-foreground: oklch(0.45 0.015 340);
+
+  --primary: oklch(0.62 0.22 350);
+  --primary-foreground: oklch(0.98 0 0);
+  --ring: oklch(0.62 0.22 350);
+  --accent: oklch(0.82 0.05 350);
+  --accent-foreground: oklch(0.25 0.02 330);
+
+  --destructive: oklch(0.55 0.22 25);
+
+  --border: oklch(0.40 0.03 340 / 15%);
+  --input: oklch(0.40 0.03 340 / 18%);
+  --scrollbar-thumb: oklch(0.72 0.04 340);
+  --scrollbar-thumb-hover: oklch(0.62 0.05 340);
+
+  --sidebar: oklch(0.85 0.03 338);
+  --sidebar-foreground: oklch(0.28 0.02 330);
+  --sidebar-primary: oklch(0.62 0.22 350);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.80 0.05 350);
+  --sidebar-accent-foreground: oklch(0.25 0.02 330);
+  --sidebar-border: oklch(0.40 0.03 340 / 12%);
+  --sidebar-ring: oklch(0.62 0.22 350);
+
+  --chart-1: oklch(0.62 0.22 350);
+  --chart-2: oklch(0.68 0.18 340);
+  --chart-3: oklch(0.55 0.20 5);
+  --chart-4: oklch(0.72 0.14 335);
+  --chart-5: oklch(0.50 0.24 355);
+
+  /* Sakura Effect Config */
+  --sakura-text-glow: 0 0 8px oklch(0.62 0.22 350 / 20%);
+  --sakura-primary-glow: 0 0 14px 3px oklch(0.62 0.22 350 / 25%);
+  --sakura-border-glow: oklch(0.62 0.22 350 / 10%);
+  --sakura-vignette-opacity: 0.15;
+  --sakura-vignette-spread: 82%;
+}
+
+/* ── Soft dreamy vignette ── */
+html[data-theme="sakura"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle at center,
+    transparent var(--sakura-vignette-spread),
+    oklch(0.55 0.06 340 / var(--sakura-vignette-opacity)) 100%
+  );
+}
+
+/* ── Soft pink text glow ── */
+html[data-theme="sakura"] body {
+  text-shadow: var(--sakura-text-glow);
+}
+
+/* ── Primary button glow ── */
+html[data-theme="sakura"] .bg-primary {
+  box-shadow: var(--sakura-primary-glow), inset 0 0 0 1px oklch(1 0 0 / 12%);
+  text-shadow: none;
+}
+
+/* ── Sakura flower play button ──
+   50-point polygon: 5 petals with rounded outward-bulging sides
+   and V-notched tips (the distinctive sakura petal shape).
+   Each petal: valley → inner curve → wide bulge → intermediate →
+   tip shoulder → V-notch → mirrored back. */
+html[data-theme="sakura"] button.rounded-full.bg-primary {
+  clip-path: polygon(
+    /* Petal 1 — top */
+    35% 29%, 35% 22%, 36% 8%, 42% 4%, 46% 1%,
+    50% 10%,
+    54% 1%, 58% 4%, 64% 8%, 65% 22%,
+    /* Petal 2 — upper right */
+    65% 29%, 72% 27%, 86% 24%, 92% 28%, 95% 31%,
+    88% 38%,
+    98% 39%, 97% 43%, 94% 50%, 82% 56%,
+    /* Petal 3 — lower right */
+    75% 58%, 79% 64%, 86% 76%, 84% 83%, 82% 87%,
+    74% 82%,
+    75% 92%, 71% 92%, 64% 92%, 54% 82%,
+    /* Petal 4 — lower left */
+    50% 76%, 46% 82%, 36% 92%, 29% 92%, 25% 92%,
+    26% 82%,
+    18% 87%, 16% 83%, 14% 76%, 21% 64%,
+    /* Petal 5 — upper left */
+    25% 58%, 18% 56%, 6% 50%, 3% 43%, 2% 39%,
+    12% 38%,
+    5% 31%, 9% 28%, 14% 24%, 28% 27%
+  );
+  box-shadow: none;
+  filter: drop-shadow(0 0 10px oklch(0.62 0.22 350 / 35%));
+}
+
+/* ── Card styling: soft pink glow + inner highlight ── */
+html[data-theme="sakura"] [data-slot="card"] {
+  box-shadow:
+    0 1px 3px 0 oklch(0.62 0.22 350 / 8%),
+    inset 0 1px 0 oklch(1 0 0 / 40%),
+    0 0 1px 0 var(--sakura-border-glow);
+}
+
+/* ── Sidebar soft edge ── */
+html[data-theme="sakura"] aside[class*="bg-sidebar"] {
+  box-shadow: 1px 0 6px -2px oklch(0.62 0.22 350 / 10%);
+}
+
+/* ── Mini-player soft edge ── */
+html[data-theme="sakura"] .fixed.bottom-0.border-t {
+  box-shadow: 0 -1px 6px -2px oklch(0.62 0.22 350 / 10%);
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="sakura"] body::before {
+    display: none;
+  }
+  html[data-theme="sakura"] body {
+    text-shadow: none;
+  }
+  html[data-theme="sakura"] button.rounded-full.bg-primary {
+    clip-path: none;
+    filter: none;
+  }
+  html[data-theme="sakura"] .bg-primary,
+  html[data-theme="sakura"] [data-slot="card"],
+  html[data-theme="sakura"] aside[class*="bg-sidebar"],
+  html[data-theme="sakura"] .fixed.bottom-0.border-t {
+    box-shadow: revert;
+  }
+}
