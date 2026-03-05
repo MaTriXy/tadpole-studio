@@ -25,8 +25,8 @@ cloud-llm = [
 ]
 
 [tool.uv.sources]
-ace-step = { git = "https://github.com/ace-step/ACE-Step-1.5", rev = "1b62344" }
-nano-vllm = { git = "https://github.com/ace-step/ACE-Step-1.5", subdirectory = "acestep/third_parts/nano-vllm", rev = "1b62344" }
+ace-step = { git = "https://github.com/ace-step/ACE-Step-1.5", rev = "82a5d84" }
+nano-vllm = { git = "https://github.com/ace-step/ACE-Step-1.5", subdirectory = "acestep/third_parts/nano-vllm", rev = "82a5d84" }
 heartlib = { git = "https://github.com/HeartMuLa/heartlib", rev = "80371fd" }
 
 [tool.uv]

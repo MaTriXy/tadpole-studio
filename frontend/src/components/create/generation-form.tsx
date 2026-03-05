@@ -27,7 +27,7 @@ export function GenerationForm() {
   const isCancelling = useGenerationStore((s) =>
     s.activeJobs.some((j) => j.status === "cancelling"),
   );
-  const { submit, canSubmit, isGenerating, formatCaption, isFormatting, canFormat } = useGeneration();
+  const { submit, canSubmit, isGenerating, formatCaption, isFormatting, canFormat, undoFormat, canUndoFormat } = useGeneration();
   const { modelType } = useActiveModel();
   const updateAdvanced = useGenerationStore((s) => s.updateAdvancedSettings);
   const lastAutoSwitched = useGenerationStore((s) => s.lastAutoSwitchedModelType);
@@ -49,7 +49,7 @@ export function GenerationForm() {
 
       <div className="rounded-xl border border-border bg-card p-4 space-y-4">
         {activeMode === "Simple" && <SimpleMode />}
-        {activeMode === "Custom" && <CustomMode formatCaption={formatCaption} isFormatting={isFormatting} canFormat={canFormat} />}
+        {activeMode === "Custom" && <CustomMode formatCaption={formatCaption} isFormatting={isFormatting} canFormat={canFormat} onUndo={undoFormat} canUndo={canUndoFormat} />}
         {activeMode === "Remix" && <RemixMode />}
         {activeMode === "Repaint" && <RepaintMode />}
         {activeMode === "Extract" && <ExtractMode />}

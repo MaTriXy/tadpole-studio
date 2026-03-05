@@ -38,6 +38,8 @@ export function useGeneration() {
     setIsGenerating,
     setIsFormatting,
     updateCustomForm,
+    preFormatSnapshot,
+    setPreFormatSnapshot,
     autoTitleEnabled,
     customTitle,
   } = useGenerationStore();
@@ -355,6 +357,8 @@ export function useGeneration() {
     if (isFormatting) return;
     setIsFormatting(true);
 
+    setPreFormatSnapshot({ ...customForm });
+
     try {
       const result = await formatCaptionApi({
         caption: customForm.caption,
@@ -387,7 +391,7 @@ export function useGeneration() {
     } finally {
       setIsFormatting(false);
     }
-  }, [customForm, isFormatting, setIsFormatting, updateCustomForm]);
+  }, [customForm, isFormatting, setIsFormatting, setPreFormatSnapshot, updateCustomForm]);
 
   const canSubmit =
     !isGenerating &&
@@ -409,11 +413,21 @@ export function useGeneration() {
 
   const canFormat = !isFormatting && customForm.caption.trim().length > 0;
 
+  const canUndoFormat = preFormatSnapshot !== null;
+
+  const undoFormat = useCallback(() => {
+    if (!preFormatSnapshot) return;
+    updateCustomForm(preFormatSnapshot);
+    setPreFormatSnapshot(null);
+  }, [preFormatSnapshot, updateCustomForm, setPreFormatSnapshot]);
+
   return {
     submit,
     formatCaption: formatCaptionAction,
     canSubmit,
     canFormat,
+    canUndoFormat,
+    undoFormat,
     isGenerating,
     isFormatting,
   };

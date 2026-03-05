@@ -58,7 +58,7 @@ wheels = [
 [[package]]
 name = "ace-step"
 version = "1.5.0"
-source = { git = "https://github.com/ace-step/ACE-Step-1.5?rev=1b62344#1b623443303d4816efd9d048fd0a8a8e3ac8243a" }
+source = { git = "https://github.com/ace-step/ACE-Step-1.5?rev=82a5d84#82a5d8432c37f7c5d2ee4e561fb9a8e703207106" }
 dependencies = [
     { name = "accelerate" },
     { name = "diffusers" },
@@ -1641,7 +1641,7 @@ wheels = [
 [[package]]
 name = "nano-vllm"
 version = "0.2.0"
-source = { git = "https://github.com/ace-step/ACE-Step-1.5?subdirectory=acestep%2Fthird_parts%2Fnano-vllm&rev=1b62344#1b623443303d4816efd9d048fd0a8a8e3ac8243a" }
+source = { git = "https://github.com/ace-step/ACE-Step-1.5?subdirectory=acestep%2Fthird_parts%2Fnano-vllm&rev=82a5d84#82a5d8432c37f7c5d2ee4e561fb9a8e703207106" }
 dependencies = [
     { name = "flash-attn", version = "2.8.2", source = { url = "https://github.com/sdbds/flash-attention-for-windows/releases/download/2.8.2/flash_attn-2.8.2+cu128torch2.7.1cxx11abiFALSEfullbackward-cp311-cp311-win_amd64.whl" }, marker = "python_full_version < '3.12' and platform_machine == 'AMD64' and sys_platform == 'win32'" },
     { name = "flash-attn", version = "2.8.3+cu128torch2.10", source = { url = "https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.12/flash_attn-2.8.3+cu128torch2.10-cp311-cp311-linux_x86_64.whl" }, marker = "python_full_version < '3.12' and platform_machine == 'x86_64' and sys_platform == 'linux'" },
@@ -2746,14 +2746,14 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ace-step", git = "https://github.com/ace-step/ACE-Step-1.5?rev=1b62344" },
+    { name = "ace-step", git = "https://github.com/ace-step/ACE-Step-1.5?rev=82a5d84" },
     { name = "aiosqlite", specifier = ">=0.20.0" },
     { name = "anthropic", marker = "extra == 'cloud-llm'", specifier = ">=0.30.0" },
     { name = "fastapi", specifier = ">=0.110.0" },
     { name = "heartlib", git = "https://github.com/HeartMuLa/heartlib?rev=80371fd" },
     { name = "hf-xet", specifier = ">=1.1" },
     { name = "loguru", specifier = ">=0.7.3" },
-    { name = "nano-vllm", marker = "platform_machine != 'arm64' or sys_platform != 'darwin'", git = "https://github.com/ace-step/ACE-Step-1.5?subdirectory=acestep%2Fthird_parts%2Fnano-vllm&rev=1b62344" },
+    { name = "nano-vllm", marker = "platform_machine != 'arm64' or sys_platform != 'darwin'", git = "https://github.com/ace-step/ACE-Step-1.5?subdirectory=acestep%2Fthird_parts%2Fnano-vllm&rev=82a5d84" },
     { name = "openai", marker = "extra == 'cloud-llm'", specifier = ">=1.0.0" },
     { name = "python-multipart", specifier = ">=0.0.9" },
     { name = "tinytag", specifier = ">=2.0.0" },

@@ -3,17 +3,22 @@
 import { CaptionInput } from "@/components/create/caption-input";
 import { LyricsEditor } from "@/components/create/lyrics-editor";
 import { MetadataControls } from "@/components/create/metadata-controls";
+import { Button } from "@/components/ui/button";
+import { RotateCcw } from "lucide-react";
 import { useGenerationStore } from "@/stores/generation-store";
 
 interface CustomModeProps {
   formatCaption: () => Promise<void>;
   isFormatting: boolean;
   canFormat: boolean;
+  onUndo: () => void;
+  canUndo: boolean;
 }
 
-export function CustomMode({ formatCaption, isFormatting, canFormat }: CustomModeProps) {
+export function CustomMode({ formatCaption, isFormatting, canFormat, onUndo, canUndo }: CustomModeProps) {
   const form = useGenerationStore((s) => s.customForm);
   const update = useGenerationStore((s) => s.updateCustomForm);
+  const resetCustomForm = useGenerationStore((s) => s.resetCustomForm);
 
   return (
     <div className="space-y-4">
@@ -24,6 +29,8 @@ export function CustomMode({ formatCaption, isFormatting, canFormat }: CustomMod
         onFormat={formatCaption}
         isFormatting={isFormatting}
         canFormat={canFormat}
+        onUndo={onUndo}
+        canUndo={canUndo}
       />
 
       <LyricsEditor
@@ -46,6 +53,16 @@ export function CustomMode({ formatCaption, isFormatting, canFormat }: CustomMod
         instrumental={form.instrumental}
         onInstrumentalChange={(v) => update({ instrumental: v })}
       />
+
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={resetCustomForm}
+        className="h-7 gap-1.5 text-xs text-muted-foreground"
+      >
+        <RotateCcw className="h-3 w-3" />
+        Reset Form
+      </Button>
     </div>
   );
 }

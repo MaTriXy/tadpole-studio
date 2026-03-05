@@ -144,6 +144,36 @@ def _install_cuda_torch() -> None:
     log("PyTorch with CUDA installed successfully.")
 
 
+def _deps_changed() -> bool:
+    """Check if lockfiles are newer than the last successful install."""
+    backend_stamp = BACKEND_DIR / ".venv" / ".deps-stamp"
+    frontend_stamp = FRONTEND_DIR / "node_modules" / ".deps-stamp"
+    backend_lock = BACKEND_DIR / "uv.lock"
+    frontend_lock = FRONTEND_DIR / "pnpm-lock.yaml"
+
+    if backend_lock.exists() and (
+        not backend_stamp.exists()
+        or backend_lock.stat().st_mtime > backend_stamp.stat().st_mtime
+    ):
+        return True
+
+    if frontend_lock.exists() and (
+        not frontend_stamp.exists()
+        or frontend_lock.stat().st_mtime > frontend_stamp.stat().st_mtime
+    ):
+        return True
+
+    return False
+
+
+def _touch_dep_stamps() -> None:
+    """Record a successful install so we can detect future lockfile changes."""
+    backend_stamp = BACKEND_DIR / ".venv" / ".deps-stamp"
+    frontend_stamp = FRONTEND_DIR / "node_modules" / ".deps-stamp"
+    backend_stamp.touch()
+    frontend_stamp.touch()
+
+
 def install_dependencies() -> None:
     log("Installing backend dependencies...")
     _run(["uv", "sync"], cwd=BACKEND_DIR, check=True)
@@ -154,6 +184,8 @@ def install_dependencies() -> None:
 
     log("Installing frontend dependencies...")
     _run(["pnpm", "install", "--frozen-lockfile"], cwd=FRONTEND_DIR, check=True)
+
+    _touch_dep_stamps()
 
 
 def main() -> None:
@@ -167,12 +199,13 @@ def main() -> None:
     ensure_data_dirs()
 
     # Install deps if needed
-    if not (BACKEND_DIR / ".venv").exists():
+    if not (BACKEND_DIR / ".venv").exists() or not (FRONTEND_DIR / "node_modules").exists():
         install_dependencies()
-    elif not (FRONTEND_DIR / "node_modules").exists():
+    elif _deps_changed():
+        log("Dependencies changed — updating...", YELLOW)
         install_dependencies()
-    else:
-        log("Dependencies already installed. Use --install to force reinstall.", YELLOW)
+    elif "--install" not in sys.argv:
+        log("Dependencies up to date.", YELLOW)
 
     if "--install" in sys.argv:
         install_dependencies()

@@ -132,6 +132,9 @@ interface GenerationState {
   autoGenCount: number;
   autoGenMaxRuns: number; // 0 = unlimited
 
+  // Undo Format
+  preFormatSnapshot: CustomForm | null;
+
   // Model-type auto-switch tracking
   lastAutoSwitchedModelType: string;
 
@@ -160,6 +163,8 @@ interface GenerationState {
   resetAutoGenCount: () => void;
   setAutoGenMaxRuns: (v: number) => void;
   setLastAutoSwitchedModelType: (v: string) => void;
+  setPreFormatSnapshot: (snapshot: CustomForm | null) => void;
+  resetCustomForm: () => void;
   setAutoTitleEnabled: (v: boolean) => void;
   setCustomTitle: (v: string) => void;
   swapJobId: (oldId: string, newId: string) => void;
@@ -274,6 +279,8 @@ export const useGenerationStore = create<GenerationState>()((set) => ({
   isGenerating: false,
   isFormatting: false,
 
+  preFormatSnapshot: null,
+
   autoGenEnabled: false,
   autoSaveEnabled: false,
   autoGenCount: 0,
@@ -340,6 +347,21 @@ export const useGenerationStore = create<GenerationState>()((set) => ({
   resetAutoGenCount: () => set({ autoGenCount: 0 }),
   setAutoGenMaxRuns: (v) => set({ autoGenMaxRuns: v }),
   setLastAutoSwitchedModelType: (v) => set({ lastAutoSwitchedModelType: v }),
+  setPreFormatSnapshot: (snapshot) => set({ preFormatSnapshot: snapshot }),
+  resetCustomForm: () =>
+    set({
+      customForm: {
+        caption: "",
+        lyrics: "",
+        instrumental: false,
+        language: "unknown",
+        bpm: null,
+        keyscale: "",
+        timesignature: "",
+        duration: null,
+      },
+      preFormatSnapshot: null,
+    }),
   setAutoTitleEnabled: (v) => set({ autoTitleEnabled: v }),
   setCustomTitle: (v) => set({ customTitle: v }),
   swapJobId: (oldId, newId) =>

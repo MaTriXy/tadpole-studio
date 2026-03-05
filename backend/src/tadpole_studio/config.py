@@ -45,10 +45,14 @@ class Settings:
     HEARTMULA_LAZY_LOAD: bool = os.getenv("HEARTMULA_LAZY_LOAD", "false").lower() == "true"
     HEARTMULA_DEVICE: str = os.getenv("HEARTMULA_DEVICE", "auto")
 
-    # CORS
+    # CORS — override with comma-separated TADPOLE_CORS_ORIGINS env var
     CORS_ORIGINS: list[str] = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
+        origin.strip()
+        for origin in os.getenv(
+            "TADPOLE_CORS_ORIGINS",
+            "http://localhost:3000,http://127.0.0.1:3000",
+        ).split(",")
+        if origin.strip()
     ]
 
     @classmethod

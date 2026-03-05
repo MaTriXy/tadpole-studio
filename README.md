@@ -148,6 +148,18 @@ python3 start.py --install   # Force reinstall all dependencies
 python3 start.py --no-open   # Don't auto-open browser
 ```
 
+### Updating
+
+```bash
+git pull
+python3 start.py        # macOS / Linux
+python start.py         # Windows
+```
+
+The launcher automatically detects dependency changes after `git pull` and reinstalls as needed — including CUDA PyTorch on Windows.
+
+To force a full reinstall: `python3 start.py --install`
+
 <details>
 <summary><strong>Manual Setup</strong></summary>
 
@@ -187,6 +199,7 @@ Environment variables (all optional, sensible defaults provided):
 | `HEARTMULA_VERSION` | `3B` | HeartMuLa model version |
 | `HEARTMULA_DEVICE` | `auto` | HeartMuLa device (`auto`, `cuda`, `mps`, `cpu`) |
 | `HEARTMULA_LAZY_LOAD` | `false` | Lazy-load HeartMuLa model on first use |
+| `TADPOLE_CORS_ORIGINS` | `http://localhost:3000,...` | Comma-separated CORS origins |
 
 > **Cloud LLM keys** (OpenAI, Anthropic) are configured through the **Settings** page in the UI — no env vars needed.
 
